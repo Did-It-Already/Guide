@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Repository Cloning and Docker Commands</title>
+</head>
+<body>
+    <h1>Clonar cada repositorio</h1>
+    <hr>
+    <pre>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/AuthAPI.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/UserAPI.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/TaskAPI.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/HabitAPI.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/api_gw.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/front_web.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/front_mobile.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/front_mobile.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/SOAP.git</div>
+        <div class="click-to-copy">git clone https://github.com/Did-It-Already/ag_rp.git</div>
+    </pre>
+
+    <h1>Correr los docker en cada repo (Diana debe ponerle 'sudo' antes de cada comando)</h1>
+    <hr>
+    <h2>USERS (NICO) (requiere .env):</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t userapi .</div>
+        <div class="click-to-copy">docker run -d -p 8001:8001 userapi</div>
+    </pre>
+
+    <h2>HABITS (EFRA) (requiere .env):</h2>
+    <pre>
+        <div class="click-to-copy">docker build --pull --rm -f "Dockerfile" -t habitapi:latest "."</div>
+            <div class="click-to-copy">docker run -d -p 3525:3525/tcp habitapi:latest</div>
+    </pre>
+
+    <h2>COLA RABBIT:</h2>
+    <pre>
+        <div class="click-to-copy">docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq rabbitmq:3-management</div>
+            <div class="click-to-copy">docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq</div>
+    </pre>
+
+    <h2>AUTH (DANI) (requiere .env):</h2>
+    <pre>
+        <div class="click-to-copy">docker build --build-arg DATABASE_URL=postgres://default:hsfi37yImdxu@ep-calm-wave-80655746.us-east-1.postgres.vercel-storage.com:5432/verceldb -t auth_ms .</div>
+            <div class="click-to-copy">docker run  --env-file .env --name auth_ms -p 8000:8000 auth_ms</div>
+    </pre>
+
+    <h2>TASKS (DIANA):</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t dia_tasks_ms_image .</div>
+            <div class="click-to-copy">docker run -p 9000:9000 -e DB_USER=dmonroym -e DB_PASSWORD=4rqu1S0ftV4l3 -e DB_NAME=dia_tasks_db dia_tasks_ms_image</div>
+    </pre>
+
+    <h2>API GATEWAY</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t dia_api_gw .</div>
+            <div class="click-to-copy">docker run -p 5000:5000 dia_api_gw</div>
+    </pre>
+
+    <h2>PROXY API_GW (Entrar a la carpeta ag_rp)</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t dia_ag_rp .</div>
+            <div class="click-to-copy">docker run -d -p 80:80 dia_ag_rp</div>
+    </pre>
+
+    <h2>FRONT WEB:</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t frontweb .</div>
+            <div class="click-to-copy">docker run -d -p 5173:5173 frontweb</div>
+    </pre>
+
+    <h2>WEB PROXY (Entrar a la carpeta front_web/proxy)</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t web_proxy .</div>
+            <div class="click-to-copy">docker run -d -p 2512:2512 web_proxy</div>
+    </pre>
+
+    <h2>INTERFAZ SOAP (Requiere .env)</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t dia_int .</div>
+            <div class="click-to-copy">docker run -d -p 3000:3000 dia_int</div>
+    </pre>
+
+    <h2>PROXY INTERFAZ (Entrar a la carpeta SOAP/proxy)</h2>
+    <pre>
+        <div class="click-to-copy">docker build -t dia_int_rp .</div>
+            <div class="click-to-copy">docker run -d -p 3112:3112 dia_int_rp</div>
+    </pre>
+
+    <h1>Correr el front movil</h1>
+    <hr>
+    <pre>
+        <div class="click-to-copy">npm run install</div>
+            <div class="click-to-copy">npx expo start</div>
+    </pre>
+    <script>
+        const copyToClipboard = (text) => {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        };
+
+        const clickToCopyElements = document.querySelectorAll('.click-to-copy');
+        clickToCopyElements.forEach((element) => {
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', () => {
+                copyToClipboard(element.textContent);
+                alert('Copied to clipboard: ' + element.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
