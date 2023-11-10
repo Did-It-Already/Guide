@@ -32,31 +32,32 @@
     <h2>COLA RABBIT:</h2>
     <pre>
         <div class="click-to-copy">docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq rabbitmq:3-management</div>
-            <div class="click-to-copy">docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq</div>
+        <div class="click-to-copy">docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" rabbitmq</div>
     </pre>
 
      <h2>HABITS (EFRA) (requiere .env):</h2>
     <pre>
+        <p>Usar la IP del punto anterior en la configuracion de rabbit en src/services/habits.services</p>
         <div class="click-to-copy">docker build --pull --rm -f "Dockerfile" -t habitapi:latest "."</div>
-            <div class="click-to-copy">docker run -d -p 3525:3525/tcp habitapi:latest</div>
+        <div class="click-to-copy">docker run -d -p 3525:3525/tcp habitapi:latest</div>
     </pre>
 
     <h2>AUTH (DANI) (requiere .env):</h2>
     <pre>
         <div class="click-to-copy">docker build -t auth_ms .</div>
-        <div class="click-to-copy">docker run  --env-file .env --name auth_ms -p 8000:8000 auth_ms</div>
+        <div class="click-to-copy">docker run  --env-file .env --name auth_ms -d -p 8000:8000 auth_ms</div>
     </pre>
 
     <h2>TASKS (DIANA):</h2>
     <pre>
         <div class="click-to-copy">docker build -t dia_tasks_ms_image .</div>
-            <div class="click-to-copy">docker run -p 9000:9000 -e DB_USER=dmonroym -e DB_PASSWORD=4rqu1S0ftV4l3 -e DB_NAME=dia_tasks_db dia_tasks_ms_image</div>
+            <div class="click-to-copy">docker run -d -p 9000:9000 -e DB_USER=dmonroym -e DB_PASSWORD=4rqu1S0ftV4l3 -e DB_NAME=dia_tasks_db dia_tasks_ms_image</div>
     </pre>
 
     <h2>API GATEWAY</h2>
     <pre>
         <div class="click-to-copy">docker build -t dia_api_gw .</div>
-            <div class="click-to-copy">docker run -p 5000:5000 dia_api_gw</div>
+            <div class="click-to-copy">docker run -d -p 5000:5000 dia_api_gw</div>
     </pre>
 
     <h2>PROXY API_GW (Entrar a la carpeta ag_rp)</h2>
@@ -74,7 +75,7 @@
     <h2>WEB PROXY (Entrar a la carpeta front_web/proxy)</h2>
     <pre>
         <div class="click-to-copy">docker build -t web_proxy .</div>
-            <div class="click-to-copy">docker run -d -p 2512:2512 web_proxy</div>
+        <div class="click-to-copy">docker run -d -p 2512:2512 web_proxy</div>
     </pre>
 
     <h2>INTERFAZ SOAP (Requiere .env)</h2>
@@ -102,7 +103,7 @@
     <hr>
     <pre>
         <div class="click-to-copy">npm run install</div>
-            <div class="click-to-copy">npx expo start</div>
+        <div class="click-to-copy">npx expo start</div>
     </pre>
     <script>
         const copyToClipboard = (text) => {
