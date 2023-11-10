@@ -15,7 +15,6 @@
         <div class="click-to-copy">git clone https://github.com/Did-It-Already/api_gw.git</div>
         <div class="click-to-copy">git clone https://github.com/Did-It-Already/front_web.git</div>
         <div class="click-to-copy">git clone https://github.com/Did-It-Already/front_mobile.git</div>
-        <div class="click-to-copy">git clone https://github.com/Did-It-Already/front_mobile.git</div>
         <div class="click-to-copy">git clone https://github.com/Did-It-Already/SOAP.git</div>
         <div class="click-to-copy">git clone https://github.com/Did-It-Already/ag_rp.git</div>
         <div class="click-to-copy">git clone https://github.com/Did-It-Already/ldap.git</div>
@@ -92,6 +91,7 @@
 
      <h2>LDAP</h2>
     <pre>
+        <div class="click-to-copy">docker-compose up</div>
         <p>Correr siguientes comandos en el bash del container dia_ldap</p>
         <div class="click-to-copy">ldapadd -x -D "cn=admin,dc=diditalready,dc=com" -w admin -f /container/service/slapd/assets/config/bootstrap/ldif/custom/autoconfig.ldif </div>
         <div class="click-to-copy">ldapadd -Y EXTERNAL -H ldapi:/// -f /container/service/slapd/assets/config/bootstrap/ldif/custom/ppolicy-add.ldif</div>
