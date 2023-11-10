@@ -29,16 +29,16 @@
         <div class="click-to-copy">docker run -d -p 8001:8001 userapi</div>
     </pre>
 
-    <h2>HABITS (EFRA) (requiere .env):</h2>
-    <pre>
-        <div class="click-to-copy">docker build --pull --rm -f "Dockerfile" -t habitapi:latest "."</div>
-            <div class="click-to-copy">docker run -d -p 3525:3525/tcp habitapi:latest</div>
-    </pre>
-
     <h2>COLA RABBIT:</h2>
     <pre>
         <div class="click-to-copy">docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq rabbitmq:3-management</div>
             <div class="click-to-copy">docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq</div>
+    </pre>
+
+     <h2>HABITS (EFRA) (requiere .env):</h2>
+    <pre>
+        <div class="click-to-copy">docker build --pull --rm -f "Dockerfile" -t habitapi:latest "."</div>
+            <div class="click-to-copy">docker run -d -p 3525:3525/tcp habitapi:latest</div>
     </pre>
 
     <h2>AUTH (DANI) (requiere .env):</h2>
